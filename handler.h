@@ -74,7 +74,7 @@ int deleteWeekEventCal(calendar_t * calendar,
 weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar);
 
 /*
- * Libere une liste chainee à deux niveau
+ * Libere une liste chainee a deux niveau
  * de type weekCal/eventCal
  * On utilise une supression en tete
  */
