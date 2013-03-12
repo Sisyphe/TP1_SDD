@@ -33,21 +33,21 @@
 \clubpenalty=10000 % empeche au maximum la coupure apres la premiere ligne 
 \raggedbottom
 
-\lstset{language=C, basicstyle=\scriptsize, numbers=left, numberstyle=\scriptsize, numbersep=12pt} 
+\lstset{language=C, basicstyle=\scriptsize, numbers=left, numberstyle=\footnotesize, numbersep=7pt} 
 
 \def\maketitle{
 \thispagestyle{empty}
-
-\noindent 
-  Gérald Lelong \\
-  Noël Martignoni \\
+ 
+ isima
  
   \vskip 6cm
   
   \begin{center}\leavevmode
   \Large  \textbf{Structure de donnée} \\
-  \rule{9cm}{1pt} \\
   \Huge Compte rendu TP1 \\
+   \rule{11cm}{1pt} \\
+   \footnotesize Lelong Gérald  \\
+    Martignoni Noël  \\
   \end{center}
       
   \cleardoublepage
@@ -84,63 +84,45 @@ Les données sont composé par une liste chainée principale, qui contient un point
 \item[tools.h .c] Contient des fonctions de bas niveau sans lien direct avec les \textit{calendar}.
 \end{description}
 
-\chapter{Algorithmes}
-
-\section{Création}
-
-Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
-
-\section{Insertion}
-
-Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
-
-\section{Recherche}
-
-Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
-
-\section{Suppression}
-
-Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
-
 \chapter{Programme C}
 
 \section{main.c}
 
-\lstinputlisting[language=C]{fichiers/main.c}
+\lstinputlisting[language=C]{../main.c}
 
 \section{struct.h}
 
-\lstinputlisting[language=C]{fichiers/struct.h}
+\lstinputlisting[language=C]{../struct.h}
 
 \section{calendar.h}
 
-\lstinputlisting[language=C]{fichiers/calendar.h}
+\lstinputlisting[language=C]{../calendar.h}
 
 \section{calendar.c}
 
-\lstinputlisting[language=C]{fichiers/calendar.c}
+\lstinputlisting[language=C]{../calendar.c}
 
 \section{handler.h}
 
-\lstinputlisting[language=C]{fichiers/handler.h}
+\lstinputlisting[language=C]{../handler.h}
 
 \section{handler.c}
 
-\lstinputlisting[language=C]{fichiers/handler.c}
+\lstinputlisting[language=C]{../handler.c}
 
 \section{tools.h}
 
-\lstinputlisting[language=C]{fichiers/tools.h}
+\lstinputlisting[language=C]{../tools.h}
 
 \section{tools.c}
 
-\lstinputlisting[language=C]{fichiers/tools.c}
+\lstinputlisting[language=C]{../tools.c}
 
-\chapter{Compilation et tests}
+\chapter{Annexes}
 
 \section{Makefile}
 
-\lstinputlisting[language=make]{fichiers/Makefile}
+\lstinputlisting[language=make]{../makefile}
 
 \section{Jeux de test}
 
