@@ -24,7 +24,7 @@ $(EXE) :
 .o : .c
 	$(GCC) -o $@ -c $< $(CFLAGS)
 
-#Pour faire le ménage
+#Pour faire le menage
 clean:
 	rm -f *.o *~ $(EXE)
 
