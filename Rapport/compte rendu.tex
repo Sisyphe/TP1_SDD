@@ -1,0 +1,169 @@
+\documentclass[12pt]{report}
+%\documentclass[twoside, openright, 12pt]{report}
+ 
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry} % definition des marges
+
+\usepackage[applemac]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel} 
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{titlepic}
+\usepackage{titlesec, blindtext, color}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{minitoc}
+\usepackage{perpage}
+\usepackage{setspace}
+\setstretch{1.5} % interligne de 1.5
+
+%paragraph options
+\setlength{\parindent}{15pt}
+\setlength{\parskip}{6pt}
+
+% enleve la mention chapitre
+\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
+
+% Ligne orpheline ou veuve
+\widowpenalty=10000 % empeche au maximum la coupure avant la derniere ligne 
+\clubpenalty=10000 % empeche au maximum la coupure apres la premiere ligne 
+\raggedbottom
+
+\lstset{language=C, basicstyle=\scriptsize, numbers=left, numberstyle=\scriptsize, numbersep=12pt} 
+
+\def\maketitle{
+\thispagestyle{empty}
+
+\noindent 
+  Gérald Lelong \\
+  Noël Martignoni \\
+ 
+  \vskip 6cm
+  
+  \begin{center}\leavevmode
+  \Large  \textbf{Structure de donnée} \\
+  \rule{9cm}{1pt} \\
+  \Huge Compte rendu TP1 \\
+  \end{center}
+      
+  \cleardoublepage
+  }  
+
+% Le document --------------------------------------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Présentation du TP}
+
+\section{Description}
+
+L'objectif de ce TP et de créer une structure de donnée du type liste chainée à deux niveaux, ainsi que de programmer une série d'algorithme pour modifier cette structure.
+
+\section{La structure de données}
+
+Les données sont composé par une liste chainée principale, qui contient un pointeur sur une sous liste.
+\begin{itemize}
+\item La liste principale contient l'année, la semaine, un pointeur sur une sous liste et un pointeur sur l'élément suivant.
+\item La sous-liste contient le jour, l'heure, l'événement ainsi qu'un pointeur sur l'élément suivant.
+\end{itemize}
+
+\section{Organisation des fichiers}
+
+\begin{description}
+\item[main.c] Programme principal
+\item[struct.h] Contient les structures et énumérations utilises pour définir un \textit{calendar}.
+\item[calendar.h .c] Contient les fonctions de manipulation de \textit{calendar} de bas niveau.
+\item[handler.h .c] Contient les fonctions de manipulation de \textit{calendar} de haut niveau.
+\item[tools.h .c] Contient des fonctions de bas niveau sans lien direct avec les \textit{calendar}.
+\end{description}
+
+\chapter{Algorithmes}
+
+\section{Création}
+
+Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
+
+\section{Insertion}
+
+Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
+
+\section{Recherche}
+
+Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
+
+\section{Suppression}
+
+Curabitur blandit tempus porttitor. Aenean lacinia bibendum nulla sed consectetur.
+
+\chapter{Programme C}
+
+\section{main.c}
+
+\lstinputlisting[language=C]{fichiers/main.c}
+
+\section{struct.h}
+
+\lstinputlisting[language=C]{fichiers/struct.h}
+
+\section{calendar.h}
+
+\lstinputlisting[language=C]{fichiers/calendar.h}
+
+\section{calendar.c}
+
+\lstinputlisting[language=C]{fichiers/calendar.c}
+
+\section{handler.h}
+
+\lstinputlisting[language=C]{fichiers/handler.h}
+
+\section{handler.c}
+
+\lstinputlisting[language=C]{fichiers/handler.c}
+
+\section{tools.h}
+
+\lstinputlisting[language=C]{fichiers/tools.h}
+
+\section{tools.c}
+
+\lstinputlisting[language=C]{fichiers/tools.c}
+
+\chapter{Compilation et tests}
+
+\section{Makefile}
+
+\lstinputlisting[language=make]{fichiers/Makefile}
+
+\section{Jeux de test}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
