@@ -38,6 +38,14 @@ weekCal_t * newWeekCal(char * year,
                        char * week);
 
 /*
+ * Cree un nouvel element du type weekCalBil et retourne un
+ * pointeur sur cet element
+ */
+weekCalBil_t * newWeekCalBil(char * year,
+                             char * week,
+                             eventCal_t * eventList);
+
+/*
  * Cree un nouvel element du type eventCal et retourne un
  * pointeur sur cet element
  */

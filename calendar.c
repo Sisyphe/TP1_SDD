@@ -67,6 +67,28 @@ weekCal_t * newWeekCal(char * year,
 }
 
 /*
+ * Cree un nouvel element du type weekCalBil et retourne un
+ * pointeur sur cet element
+ */
+weekCalBil_t * newWeekCalBil(char * year,
+                             char * week,
+                             eventCal_t * eventList)
+{
+    weekCalBil_t * newWeek = (weekCalBil_t *) malloc(sizeof(weekCalBil_t));
+    
+    newWeek->year = (char *) malloc(sizeof(char)*YEAR_SIZE);
+    newWeek->week = (char *) malloc(sizeof(char)*WEEK_SIZE);
+    
+    newWeek->year = year;
+    newWeek->week = week;
+    newWeek->eventList = eventList;
+    newWeek->prevWeek = NULL;
+    newWeek->nextWeek = NULL;
+    
+    return newWeek;
+}
+
+/*
  * Cree un nouvel element du type eventCal et retourne un
  * pointeur sur cet element
  */
@@ -99,11 +121,8 @@ weekCal_t ** searchWeek(weekCal_t ** headWeekCal,
     weekCal_t ** prevWeek = headWeekCal;
     weekCal_t * currentWeek = *headWeekCal;
 
-    printf("search\n");
-    printf("current= %p\n",currentWeek);
     while (currentWeek != NULL && isInferiorYearWeek(currentWeek, year, week))
     {
-        printf("current.week= %s\n",currentWeek->week);
         prevWeek = &(currentWeek->nextWeek);
         currentWeek = *prevWeek;
     }
@@ -130,11 +149,11 @@ int isInferiorYearWeek(weekCal_t * weekCal,
                    char * year,
                    char * week)
 {
-    int isInferior=0;
-    int compYear=strcmp(weekCal->year, year);
-    if(compYear < 0) isInferior=1;
+    int isInferior = 0;
+    int compYear = strcmp(weekCal->year, year);
+    if (compYear < 0) isInferior=1;
     else if(compYear == 0)
-        isInferior=(strcmp(weekCal->week, week) < 0);
+        isInferior = (strcmp(weekCal->week, week) < 0);
     return isInferior;
 }
 
@@ -171,11 +190,11 @@ int isInferiorDayHour(eventCal_t * eventCal,
                   char * day,
                   char * hour)
 {
-    int isInferior=0;
-    int compDay=strcmp(eventCal->day, day);
-    if(compDay < 0) isInferior=1;
+    int isInferior = 0;
+    int compDay = strcmp(eventCal->day, day);
+    if (compDay < 0) isInferior=1;
     else if(compDay == 0)
-        isInferior=(strcmp(eventCal->hour, hour) < 0);
+        isInferior = (strcmp(eventCal->hour, hour) < 0);
     return isInferior;
 }
 
