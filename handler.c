@@ -71,23 +71,23 @@ void importUnsortedFileCalendar(calendar_t * calendar,
 {
     char bufferReader[BUFFER_READER_SIZE];
     char *year, *week, *day, *hour, *event;
-    
+
     weekCal_t ** prevWeek = NULL;
     eventCal_t ** prevEvent = NULL;
-    
+
     while (fgets(bufferReader, sizeof(bufferReader), file))
     {
         extractSubString(bufferReader, &year, &week, &day, &hour, &event);
-                
+
         prevWeek = searchWeek(calendar, year, week);
-        
+
         if ((*prevWeek) == NULL || !isSameYearWeek((*prevWeek), year, week))
         {
             insertWeek(prevWeek, year, week);
         }
-        
+
         prevEvent = searchEvent(&(*prevWeek)->eventList, day, hour);
-        
+
         insertEvent(prevEvent, day, hour, event);
    }
 }
@@ -217,18 +217,18 @@ weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar)
 {
     weekCal_t * currentWeek = calendar;
 	weekCalBil_t * prevWeekBil;
-    
+
     weekCalBil_t * listeBilatere = newWeekCalBil("\0", "\0", NULL);
     listeBilatere->prevWeek = listeBilatere;
     listeBilatere->nextWeek = listeBilatere;
-    
+
     prevWeekBil = listeBilatere;
-        
+
     while (currentWeek != NULL)
-    {        
+    {
         /* creer nouvel element avec valeur de l'ancien */
         weekCalBil_t * newWeekCal = newWeekCalBil(currentWeek->year, currentWeek->week, currentWeek->eventList);
-                
+
         /* lie newelem avec le prec */
         newWeekCal->prevWeek = prevWeekBil;
         /* lie newelem avec le suiv */
@@ -237,13 +237,13 @@ weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar)
         prevWeekBil->nextWeek = newWeekCal;
         /* lie suiv avec newElem */
         newWeekCal->nextWeek->prevWeek = newWeekCal;
-        
+
         /* avancer le prec */
         prevWeekBil = newWeekCal;
 
         currentWeek = currentWeek->nextWeek;
     }
-    
+
     return listeBilatere;
 }
 
@@ -272,25 +272,25 @@ void printCalendar(calendar_t calendar)
 {
     weekCal_t * currentWeek;
     eventCal_t * currentEvent;
-    
+
     currentWeek = calendar;
-    
+
     printf("\n** Calendar **\n\n");
-    
+
     if (currentWeek == NULL)
     {
-        printf("Calendrier Vide");
+        printf("Calendrier Vide =(\n");
     }
-    
+
     while (currentWeek != NULL)
     {
         printf("%s - semaine %s\n", currentWeek->year, currentWeek->week);
-        
+
         currentEvent = currentWeek->eventList;
         while (currentEvent != NULL)
         {
             printf("    Jour %s - Heure %s - %s\n", currentEvent->day, currentEvent->hour, currentEvent->event);
-            
+
             currentEvent = currentEvent->nextEvent;
         }
         currentWeek = currentWeek->nextWeek;
