@@ -49,6 +49,21 @@ typedef struct weekCal
 } weekCal_t;
 
 /*
+ * Element de liste bilatere du type weekCal
+ * Cette liste est a double niveau :
+ * Contient un pointeur sur weekCal suivant et un pointeur
+ * sur une sous lite chainee
+ */
+typedef struct weekCalBil
+{
+    char * year;
+    char * week;
+    struct eventCal * eventList;
+    struct weekCalBil * prevWeek;
+    struct weekCalBil * nextWeek;
+} weekCalBil_t;
+
+/*
  * Element de liste chainee du type eventCal
  */
 typedef struct eventCal
