@@ -15,43 +15,34 @@
 
 int main(int argc, const char * argv[])
 {
-    calendar_t calendar = NULL;
+    weekCal_t * headWeekCal = NULL;
 	FILE * file, * fileOut;
 
 	if (argc == 2)
-    {
-        file = fopen(argv[1], "r");
-        fileOut = fopen("output.dat", "w");
-    }
+	{
+		file = fopen(argv[1], "r");
+		fileOut = fopen("output.dat", "w");
 
-    if (file && fileOut)
-    {
-        importFileCalendar(&calendar, file);
-        printCalendar(calendar);
-        exportFileCalendar(calendar, fileOut);
+		if (file && fileOut)
+		{
+			importSortedFileCalendar(&headWeekCal, file);
+			printCalendar(headWeekCal);
+			exportFileCalendar(headWeekCal, fileOut);
 
+			printf("%s", listeContigueDesEvent(headWeekCal, "TP S"));
 
-
-        weekCal_t ** test = searchWeek(&calendar, "2016", "12");
-
-        insertWeek(test, "2014", "12");
-
-        printCalendar(calendar);
-
-        /*freeCalendar(&calendar);*/
-
-        fclose(file);
-        fclose(fileOut);
-    }
-    else
-    {
-        printf("Erreur fichier");
-    }
-	/*}
-     else
-     {
-     printf("Erreur argument\n");
-     }*/
+			fclose(file);
+			fclose(fileOut);
+		}
+		else
+		{
+			printf("Erreur fichier");
+		}
+	}
+	else
+	{
+		printf("Erreur argument\n");
+	}
 
     return 0;
 }
