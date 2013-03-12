@@ -17,8 +17,8 @@
  * Convertit un fichier texte en liste chainee
  * de type weekCal/eventCal
  */
-void importFileCalendar(calendar_t * calendar,
-                       FILE * file)
+void importSortedFileCalendar(calendar_t * calendar,
+							  FILE * file)
 {
     char bufferReader[BUFFER_READER_SIZE];
     char *year, *week, *day, *hour, *event;
@@ -60,6 +60,36 @@ void importFileCalendar(calendar_t * calendar,
             }
         }
     }
+}
+
+/*
+ * Convertit un fichier texte non trie en liste chainee
+ * de type weekCal/eventCal
+ */
+void importUnsortedFileCalendar(calendar_t * calendar,
+                                FILE * file)
+{
+    char bufferReader[BUFFER_READER_SIZE];
+    char *year, *week, *day, *hour, *event;
+    
+    weekCal_t ** prevWeek = NULL;
+    eventCal_t ** prevEvent = NULL;
+    
+    while (fgets(bufferReader, sizeof(bufferReader), file))
+    {
+        extractSubString(bufferReader, &year, &week, &day, &hour, &event);
+                
+        prevWeek = searchWeek(calendar, year, week);
+        
+        if ((*prevWeek) == NULL || !isSameYearWeek((*prevWeek), year, week))
+        {
+            insertWeek(prevWeek, year, week);
+        }
+        
+        prevEvent = searchEvent(&(*prevWeek)->eventList, day, hour);
+        
+        insertEvent(prevEvent, day, hour, event);
+   }
 }
 
 /*
@@ -178,6 +208,43 @@ int deleteWeekEventCal(calendar_t * calendar,
     }
 
     return error;
+}
+
+/*
+ * Conversion d'une liste chainee en liste bilatere
+ */
+weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar)
+{
+    weekCal_t * currentWeek = calendar;
+	weekCalBil_t * prevWeekBil;
+    
+    weekCalBil_t * listeBilatere = newWeekCalBil("\0", "\0", NULL);
+    listeBilatere->prevWeek = listeBilatere;
+    listeBilatere->nextWeek = listeBilatere;
+    
+    prevWeekBil = listeBilatere;
+        
+    while (currentWeek != NULL)
+    {        
+        /* creer nouvel element avec valeur de l'ancien */
+        weekCalBil_t * newWeekCal = newWeekCalBil(currentWeek->year, currentWeek->week, currentWeek->eventList);
+                
+        /* lie newelem avec le prec */
+        newWeekCal->prevWeek = prevWeekBil;
+        /* lie newelem avec le suiv */
+        newWeekCal->nextWeek = prevWeekBil->nextWeek;
+        /* lie le prec avec newElem */
+        prevWeekBil->nextWeek = newWeekCal;
+        /* lie suiv avec newElem */
+        newWeekCal->nextWeek->prevWeek = newWeekCal;
+        
+        /* avancer le prec */
+        prevWeekBil = newWeekCal;
+
+        currentWeek = currentWeek->nextWeek;
+    }
+    
+    return listeBilatere;
 }
 
 /*
