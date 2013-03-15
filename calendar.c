@@ -75,16 +75,16 @@ weekCalBil_t * newWeekCalBil(char * year,
                              eventCal_t * eventList)
 {
     weekCalBil_t * newWeek = (weekCalBil_t *) malloc(sizeof(weekCalBil_t));
-    
+
     newWeek->year = (char *) malloc(sizeof(char)*YEAR_SIZE);
     newWeek->week = (char *) malloc(sizeof(char)*WEEK_SIZE);
-    
+
     newWeek->year = year;
     newWeek->week = week;
     newWeek->eventList = eventList;
     newWeek->prevWeek = NULL;
     newWeek->nextWeek = NULL;
-    
+
     return newWeek;
 }
 
@@ -111,8 +111,8 @@ eventCal_t * newEventCal(char * day,
 }
 
 /*
- * Recherche la week correspondant aux paramètres year et weekCal
- * et renvoie l'élement précedent s'il existe, NUll sinon.
+ * Recherche la week correspondant aux parametres year et weekCal
+ * et renvoie l'element precedent s'il existe, NUll sinon.
  */
 weekCal_t ** searchWeek(weekCal_t ** headWeekCal,
                        char * year,

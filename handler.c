@@ -175,9 +175,9 @@ char * listeContigueDesEvent(calendar_t calendar,
 }
 
 /*
- * Supprime l'event correspond aux paramètres year, week, day, hour
+ * Supprime l'event correspond aux parametres year, week, day, hour
  * de calendar et supprime la week si elle est vide.
- * Retourne FAUX si la suppression a réussi.
+ * Retourne FAUX si la suppression a reussi.
  */
 int deleteWeekEventCal(calendar_t * calendar,
                        char * year,

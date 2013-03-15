@@ -6,7 +6,7 @@
  * SDD TP1
  * 19/02/13
  *
- * Contient les structures et énumérations utilisés pour definir un calendar.
+ * Contient les structures et enumerations utilises pour definir un calendar.
  */
 
 #ifndef STRUCT_H

@@ -54,8 +54,8 @@ eventCal_t * newEventCal(char * day,
                          char * event);
 
 /*
- * Recherche la week correspondant aux paramètres year et weekCal
- * et renvoie l'élement précedent s'il existe, NUll sinon.
+ * Recherche la week correspondant aux parametres year et weekCal
+ * et renvoie l'element precedent s'il existe, NUll sinon.
  */
 weekCal_t ** searchWeek(weekCal_t ** headWeekCal,
                         char * year,
@@ -79,7 +79,7 @@ int isInferiorYearWeek(weekCal_t * weekCal,
 
 /*
  * Recherche l'event correspondant aux parametres day et hour
- * et renvoie l'element précedent s'il existe, NUll sinon.
+ * et renvoie l'element precedent s'il existe, NUll sinon.
  */
 eventCal_t ** searchEvent(eventCal_t ** headEventCal,
                           char * day,
@@ -94,12 +94,12 @@ int isInferiorDayHour(eventCal_t * eventCal,
                   char * hour);
 
 /*
- * Supprime l'élement pointé par adrPrev
+ * Supprime l'element pointe par adrPrev
  */
 void deleteWeek(weekCal_t ** adrPrev);
 
 /*
- * Supprime l'élement pointé par adrPrev
+ * Supprime l'element pointe par adrPrev
  */
 void deleteEvent(eventCal_t ** adrPrev);
 
