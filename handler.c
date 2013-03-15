@@ -126,7 +126,15 @@ void exportFileCalendar(calendar_t calendar,
         currentEvent = currentWeek->eventList;
         while (currentEvent != NULL)
         {
-            fprintf(file, "%s%s%s%s%s\n", currentWeek->year, currentWeek->week, currentEvent->day, currentEvent->hour, currentEvent->event);
+            fprintf(
+                file,
+                "%s%s%s%s%s\n",
+                currentWeek->year,
+                currentWeek->week,
+                currentEvent->day,
+                currentEvent->hour,
+                currentEvent->event
+            );
 
             currentEvent = currentEvent->nextEvent;
         }
@@ -227,7 +235,11 @@ weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar)
     while (currentWeek != NULL)
     {
         /* creer nouvel element avec valeur de l'ancien */
-        weekCalBil_t * newWeekCal = newWeekCalBil(currentWeek->year, currentWeek->week, currentWeek->eventList);
+        weekCalBil_t * newWeekCal = newWeekCalBil(
+            currentWeek->year,
+            currentWeek->week,
+            currentWeek->eventList
+        );
 
         /* lie newelem avec le prec */
         newWeekCal->prevWeek = prevWeekBil;
@@ -289,7 +301,12 @@ void printCalendar(calendar_t calendar)
         currentEvent = currentWeek->eventList;
         while (currentEvent != NULL)
         {
-            printf("    Jour %s - Heure %s - %s\n", currentEvent->day, currentEvent->hour, currentEvent->event);
+            printf(
+                "    Jour %s - Heure %s - %s\n",
+                currentEvent->day,
+                currentEvent->hour,
+                currentEvent->event
+            );
 
             currentEvent = currentEvent->nextEvent;
         }
