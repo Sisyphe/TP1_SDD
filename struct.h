@@ -80,4 +80,10 @@ typedef struct eventCal
  */
 typedef weekCal_t * calendar_t;
 
+/*
+ * Redefinition du type weekCalBil_t * en calendarBil_t qui represente un pointeur sur
+ * la tete de la liste bilatere
+ */
+typedef weekCalBil_t * calendarBil_t;
+
 #endif

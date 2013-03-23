@@ -174,11 +174,6 @@ eventCal_t ** searchEvent(eventCal_t ** headEventCal,
         currentEvent = *prevEvent;
     }
 
-    /*if (currentEvent == NULL)
-    {
-        prevEvent = NULL;
-    }*/
-
     return prevEvent;
 }
 

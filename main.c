@@ -15,7 +15,8 @@
 
 int main(int argc, const char * argv[])
 {
-    weekCal_t * headWeekCal = NULL;
+    calendar_t calendar = NULL;
+    calendarBil_t calendarBil = NULL;
 	FILE * file, * fileOut;
 
 	if (argc == 2)
@@ -25,11 +26,16 @@ int main(int argc, const char * argv[])
 
 		if (file && fileOut)
 		{
-			importSortedFileCalendar(&headWeekCal, file);
-			printCalendar(headWeekCal);
-			exportFileCalendar(headWeekCal, fileOut);
+			importSortedFileCalendar(&calendar, file);
+			printCalendar(calendar);
+			
+			exportFileCalendar(calendar, fileOut);
 
-			printf("%s", listeContigueDesEvent(headWeekCal, "TP S"));
+			printf("%s", listeContigueDesEvent(calendar, "TP S"));
+			
+			calendarBil = convertWeekCalToWeekCalBil(calendar);
+			
+			freeCalendar(calendar);
 
 			fclose(file);
 			fclose(fileOut);
