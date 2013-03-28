@@ -266,11 +266,11 @@ int deleteWeekEventCal(calendar_t * calendar,
 
     prevWeek = searchWeek(calendar, year, week);
 
-    if (prevWeek != NULL)
+    if (prevWeek != NULL && *prevWeek != NULL && isSameYearWeek(*prevWeek,year,week))
     {
         prevEvent = searchEvent(&(*prevWeek)->eventList, day, hour);
 
-        if (prevEvent != NULL)
+        if (prevEvent != NULL && *prevEvent != NULL && isSameDayHour(*prevEvent,day,hour))
         {
             deleteEvent(prevEvent);
             error = FALSE;

@@ -247,6 +247,24 @@ eventCal_t ** searchEvent(eventCal_t ** headEventCal,
 }
 
 /*
+ * Compare si le jour et l'heure des parametres et eventCal sont
+ * egaux
+ *
+ * eventCal: l'adresse de l'evenement a comparer
+ * day: le jour a comparer avec l'evenement eventCal
+ * hour: l'heure a comparer avec eventCal
+ * return: vrai si l'evenement eventCal a pour jour day et pour
+ *      heure hour
+ */
+int isSameDayHour(eventCal_t * eventCal,
+                  char * day,
+                  char * hour)
+{
+    return strcmp(eventCal->day, day) == 0 && strcmp(eventCal->hour, hour) == 0;
+}
+
+
+/*
  * Retourne vrai si eventCal est inferieur au jour et a l'heure des parametres
  *
  * eventCal: l'adresse de l'evenement a comparer

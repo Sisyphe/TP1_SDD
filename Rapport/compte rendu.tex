@@ -41,11 +41,11 @@
   \vspace*{6cm}
   
   \begin{center}\leavevmode
-  \Large  \textbf{Structure de donne} \\
+  \Large  \textbf{Structure de donnée} \\
   \Huge Compte rendu TP1 \\
    \rule{11cm}{1pt} \\
-   \normalsize Lelong Grald  \\
-    Martignoni No‘l  \\
+   \normalsize Lelong Gérald  \\
+    Martignoni Noël  \\
   \end{center}
       
   \cleardoublepage
@@ -58,18 +58,18 @@
 
 \tableofcontents
 
-\chapter{Prsentation du TP}
+\chapter{Présentation du TP}
 
 \section{Description}
 
-L'objectif de ce TP et de crer une structure de donne du type liste chaine ˆ deux niveaux, ainsi que de programmer une srie d'algorithme pour modifier cette structure.
+L'objectif de ce TP et de créer une structure de donnée du type liste chainée ˆ deux niveaux, ainsi que de programmer une série d'algorithme pour modifier cette structure.
 
-\section{Schma de la structure de donnes}
+\section{Schéma de la structure de données}
 
-Les donnes sont composes par une liste chaine principale, qui contient un pointeur sur une sous liste (fig. \ref{fig:listechaineexample} p. \pageref{fig:listechaineexample}).
+Les données sont composées par une liste chainée principale, qui contient un pointeur sur une sous liste (fig. \ref{fig:listechaineexample} p. \pageref{fig:listechaineexample}).
 \begin{itemize}
-\item La liste principale contient l'anne, la semaine, un pointeur sur une sous liste et un pointeur sur l'lment suivant.
-\item La sous-liste contient le jour, l'heure, l'vnement ainsi qu'un pointeur sur l'lment suivant.
+\item La liste principale contient l'année, la semaine, un pointeur sur une sous liste et un pointeur sur l'élément suivant.
+\item La sous-liste contient le jour, l'heure, l'événement ainsi qu'un pointeur sur l'élément suivant.
 \end{itemize}
 
 \begin{figure}[position]
@@ -83,7 +83,7 @@ Les donnes sont composes par une liste chaine principale, qui contient un poi
 
 \begin{description}
 \item[main.c] Programme principal
-\item[struct.h] Contient les structures et numrations utilises pour dfinir un \textit{calendar}.
+\item[struct.h] Contient les structures et énumérations utilisées pour définir un \textit{calendar}.
 \item[calendar.h .c] Contient les fonctions de manipulation de \textit{calendar} de bas niveau.
 \item[handler.h .c] Contient les fonctions de manipulation de \textit{calendar} de haut niveau.
 \item[tools.h .c] Contient des fonctions de bas niveau sans lien direct avec les \textit{calendar}.
@@ -101,11 +101,11 @@ Les donnes sont composes par une liste chaine principale, qui contient un poi
 
 \section{calendar.h}
 
-\lstinputlisting[language=C]{../calendar.h}
+%\lstinputlisting[language=C]{../calendar.h}
 
 \section{calendar.c}
 
-\lstinputlisting[language=C]{../calendar.c}
+%\lstinputlisting[language=C]{../calendar.c}
 
 \section{handler.h}
 
@@ -127,21 +127,208 @@ Les donnes sont composes par une liste chaine principale, qui contient un poi
 
 \section{Makefile}
 
-\lstinputlisting[language=make]{../makefile}
+\lstinputlisting[language=make]{../Makefile}
 
 \section{Jeux de test}
 
-\subsection{Insertion lment}
+\subsection{Import}
 
-\subsection{Insertion lment dans liste vide}
+\subsubsection{Import d'un fichier trié}
 
-\subsection{Suppression d'un lment}
+Soit le fichier d'essai suivant:
 
-\subsection{Suppression d'un lment qui n'est pas dans la liste}
+\begin{lstlisting}
+201210111TP SDD1
+201210210TP Scheme
+201211210TP yankee
+201212109Expositio
+201312119TP circ
+\end{lstlisting}
 
-\subsection{Suppression d'un lment dans liste vide}
+L'import de ce fichier génère le calendrier suivant:
 
-\subsection{Liste bilatre}
+\begin{lstlisting}
+** Calendar **
+
+2012 - semaine 10
+    Jour 1 - Heure 11 - TP SDD1
+
+    Jour 2 - Heure 10 - TP Scheme
+
+2012 - semaine 11
+    Jour 2 - Heure 10 - TP yankee
+
+2012 - semaine 12
+    Jour 1 - Heure 09 - Expositio
+
+2013 - semaine 12
+    Jour 1 - Heure 19 - TP circ
+\end{lstlisting}
+
+Ce qui est effectivement le calendrier attendu.
+
+\subsubsection{Import d'un fichier non trié}
+
+L'import du fichier suivant à l'aide la fonction importUnsortedFileCalendar:
+
+\begin{lstlisting}
+201210210TP Scheme
+201312119TP circ
+201211210TP yankee
+201212109Expositio
+201210111TP SDD1
+\end{lstlisting}
+
+Crée exactement le même calendrier que précedemment comme attendu.
+
+\subsubsection{Import du fichier vide}
+
+L'import du fichier vide crée un calendrier vide:
+
+\begin{lstlisting}
+** Calendar **
+
+Calendrier Vide =(
+\end{lstlisting}
+
+\subsection{Suppression}
+
+Soit le calendrier de départ suivant:
+
+\begin{lstlisting}
+** Calendar **
+
+2012 - semaine 10
+    Jour 1 - Heure 11 - TP SDD1
+
+    Jour 2 - Heure 10 - TP Scheme
+
+2012 - semaine 11
+    Jour 2 - Heure 10 - TP yankee
+
+2012 - semaine 12
+    Jour 1 - Heure 09 - Expositio
+
+2013 - semaine 12
+    Jour 1 - Heure 19 - TP circ
+\end{lstlisting}
+
+\subsubsection{Suppression d'un élément de la liste}
+
+La suppression de l'évenement <<Expositio>> le premier jour de la douzième semaine de 2012 à 9H
+se fait ainsi:
+
+\begin{lstlisting}[language=C]
+deleteWeekEventCal(&calendar,"2012","12","1","09");
+\end{lstlisting}
+
+Le resultat sur la liste est le suivant
+
+\begin{lstlisting}
+** Calendar **
+
+2012 - semaine 10
+    Jour 1 - Heure 11 - TP SDD1
+
+    Jour 2 - Heure 10 - TP Scheme
+
+2012 - semaine 11
+    Jour 2 - Heure 10 - TP yankee
+
+2013 - semaine 12
+    Jour 1 - Heure 19 - TP circ
+
+\end{lstlisting}
+
+\subsubsection{Suppression d'un élément qui n'est pas dans la liste}
+
+A partir de la même liste de départ la suppression d'un élément qui n'existe pas peut se faire ainsi:
+
+\begin{lstlisting}[language=C]
+deleteWeekEventCal(&calendar,"2012","12","1","10");
+\end{lstlisting}
+
+Ou ainsi:
+
+\begin{lstlisting}[language=C]
+deleteWeekEventCal(&calendar,"2012","16","1","10");
+\end{lstlisting}
+
+Ne modifie en rien le calendrier:
+
+\begin{lstlisting}
+** Calendar **
+
+2012 - semaine 10
+    Jour 1 - Heure 11 - TP SDD1
+
+    Jour 2 - Heure 10 - TP Scheme
+
+2012 - semaine 11
+    Jour 2 - Heure 10 - TP yankee
+
+2012 - semaine 12
+    Jour 1 - Heure 09 - Expositio
+
+2013 - semaine 12
+    Jour 1 - Heure 19 - TP circ
+\end{lstlisting}
+
+\subsubsection{Suppression d'un élément dans liste vide}
+
+Soit la liste vide:
+
+\begin{lstlisting}
+** Calendar **
+
+Calendrier Vide =(
+\end{lstlisting}
+
+L'appel de la fonction suivante n'a aucun effet sur l'état de la liste:
+
+\begin{lstlisting}[language=C]
+deleteWeekEventCal(&calendar,"2012","16","1","10");
+\end{lstlisting}
+
+On obtient toujours:
+
+\begin{lstlisting}
+** Calendar **
+
+Calendrier Vide =(
+\end{lstlisting}
+
+\subsection{Liste contiguë des évenements}
+
+\subsubsection{Recherche d'évenements existants}
+
+L'instruction suivante:
+
+\begin{lstlisting}[language=C]
+printf("%s", listeContigueDesEvent(calendar, "TP S"));
+\end{lstlisting}
+
+retourne la liste suivante:
+
+\begin{lstlisting}
+20121012012102
+\end{lstlisting}
+
+Ce qui est correcte puisqu'il s'agit des évenements <<TP SDD>> et <<TP Scheme>> qui commencent tous deux par <<TP S>>.
+
+\subsubsection{Recherche d'évenements absents}
+
+L'instruction suivante:
+
+\begin{lstlisting}[language=C]
+printf("%s", listeContigueDesEvent(calendar, "TPS"));
+\end{lstlisting}
+
+n'affiche rien, ce qui est correcte puisqu'il n'existe pas d'évenement dans ce calendrier commençant pat <<TPS>>
+
+\subsection{Liste bilatère}
+
+La liste bilatère créée à partir du calendrier de départ est représentée ci-dessous.
 
 \begin{figure}[position]
    \begin{center}
