@@ -14,11 +14,30 @@
 #include "tools.h"
 
 /*
- * Convertit un fichier texte en liste chainee
- * de type weekCal/eventCal
+ * Convertit un fichier texte trie ouvert en lecture
+ * en liste chainee de type weekCal/eventCal
+ *
+ * calendar: pointeur sur le calendrier à remplir
+ * file: pointeur sur un fichier ouvert d'ou importer
+ *
+ * bufferReader: tampon ou est stockee successivement
+ *      chaque ligne du fichier au cours de la lecture
+ * year, week, day, hour, event: les chaines de caracteres
+ *      contenant les informations donnees par la ligne courante
+ * prevWeek: pointeur precedent utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * currentWeek: pointeur courant utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * prevEvent: pointeur precedent utilise pour le parcours de la liste
+ *      de second niveau du calendrier
+ * currentEvent: pointeur courant utilise pour le parcours de la liste
+ *      de second niveau du calendrier
+ * fin1: booleen valant vrai lorsque la lecture du fichier est terminee
+ * fin2: booleen valant vrai lorsqu'on doit arreter d'inserer les evenements
+ *      dans la semaine courante et creer une nouvelle semaine
  */
 void importSortedFileCalendar(calendar_t * calendar,
-							  FILE * file)
+                              FILE * file)
 {
     char bufferReader[BUFFER_READER_SIZE];
     char *year, *week, *day, *hour, *event;
@@ -63,8 +82,20 @@ void importSortedFileCalendar(calendar_t * calendar,
 }
 
 /*
- * Convertit un fichier texte non trie en liste chainee
- * de type weekCal/eventCal
+ * Convertit un fichier texte ouvert en lecture non trie
+ * en liste chainee de type weekCal/eventCal
+ *
+ * calendar: pointeur sur le calendrier à remplir
+ * file: pointeur sur un fichier ouvert d'ou importer
+ *
+ * bufferReader: tampon ou est stockee successivement
+ *      chaque ligne du fichier au cours de la lecture
+ * year, week, day, hour, event: les chaines de caracteres
+ *      contenant les informations donnees par la ligne courante
+ * prevWeek: pointeur precedent utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * prevEvent: pointeur precedent utilise pour le parcours de la liste
+ *      de second niveau du calendrier
  */
 void importUnsortedFileCalendar(calendar_t * calendar,
                                 FILE * file)
@@ -95,6 +126,10 @@ void importUnsortedFileCalendar(calendar_t * calendar,
 /*
  * A partir de la chaine bufferReader la fonction cree les sous-chaines
  * contenant les informations stockees dans la chaine de bufferReader
+ *
+ * bufferReader: la chaine formatee d'ou extraire les donnees
+ * year, week, day, hour, event: les chaines de caractere ou stocker
+ *      les informations extraites
  */
 void extractSubString(char * bufferReader,
                       char ** year,
@@ -114,6 +149,15 @@ void extractSubString(char * bufferReader,
  * Exporte une liste chainee de type weekCal/eventCal
  * en fichier en utilisant le meme format que la lecture
  * 4charYEar|2charWeek|1charDay|2charHour|10charEvent
+ *
+ * calendar: le calendrier a enregistrer dans le fichier
+ * file: le fichier ouvert en mode ecriture ou enregistrer
+ *      le calendrier
+ *
+ * currentWeek: pointeur courant utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * currentEvent: pointeur courant utilise pour le parcours de la liste
+ *      de second niveau du calendrier
  */
 void exportFileCalendar(calendar_t calendar,
                         FILE * file)
@@ -144,6 +188,19 @@ void exportFileCalendar(calendar_t calendar,
 
 /*
  * Cree une liste contigue des jours contenant un event
+ *
+ * calendrier: le calendrier ou rechercher les evenements
+ * chaineRecherche: la chaine de caracteres permettant de filtrer
+ *      les evenements à rechercher
+ * return: la liste des jours ou l'evenement a ete trouve sous forme
+ *      de liste contigue de caracteres
+ *
+ * listeContigue: la liste des jours ou l'evenement a ete trouve sous forme
+ *      de liste contigue de caracteres
+ * currentWeek: pointeur courant utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * currentEvent: pointeur courant utilise pour le parcours de la liste
+ *      de second niveau du calendrier
  */
 char * listeContigueDesEvent(calendar_t calendar,
                              char * chaineRecherche)
@@ -183,9 +240,19 @@ char * listeContigueDesEvent(calendar_t calendar,
 }
 
 /*
- * Supprime l'event correspond aux parametres year, week, day, hour
+ * Supprime l'event correspondant aux parametres year, week, day, hour
  * de calendar et supprime la week si elle est vide.
  * Retourne FAUX si la suppression a reussi.
+ *
+ * calendar: un pointeur vers le calendrier ou supprimer l'evenement
+ * year, week, day, hour, event: les informations sur l'evenement recherche
+ * return: un booleen valant faux si la supression a reussi
+ *
+ * prevWeek: pointeur precedent utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * prevEvent: pointeur precedent utilise pour le parcours de la liste
+ *      de second niveau du calendrier
+ * error: un booleen valant faux si la supression a reussi
  */
 int deleteWeekEventCal(calendar_t * calendar,
                        char * year,
@@ -220,11 +287,20 @@ int deleteWeekEventCal(calendar_t * calendar,
 
 /*
  * Conversion d'une liste chainee en liste bilatere
+ *
+ * calendar: le calendrier a convertir en liste bilatere
+ * return: la liste bilatere creee a partir du calendrier
+ *
+ * currentWeek: pointeur courant utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * prevWeekBil: le pointeur precedent utilise pour parcourir la liste
+ *      bilatere
+ * listeBilatere: la liste bilatere creee
  */
 weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar)
 {
     weekCal_t * currentWeek = calendar;
-	weekCalBil_t * prevWeekBil;
+    weekCalBil_t * prevWeekBil;
 
     weekCalBil_t * listeBilatere = newWeekCalBil("\0", "\0", NULL);
     listeBilatere->prevWeek = listeBilatere;
@@ -263,6 +339,8 @@ weekCalBil_t * convertWeekCalToWeekCalBil(calendar_t calendar)
  * Libere une liste chainee à deux niveau
  * de type weekCal/eventCal
  * On utilise une supression en tete
+ *
+ * calendar: un pointeur vers le calendrier a supprimer
  */
 void freeCalendar(calendar_t * calendar)
 {
@@ -279,6 +357,13 @@ void freeCalendar(calendar_t * calendar)
 /*
  * Affiche sur la sortie standard le contenu de la liste chainee
  * pointe par calendar
+ *
+ * calendar: le calendrier a afficher
+ *
+ * currentWeek: pointeur courant utilise pour le parcours de la liste
+ *      de premier niveau du calendrier
+ * currentEvent: pointeur courant utilise pour le parcours de la liste
+ *      de second niveau du calendrier
  */
 void printCalendar(calendar_t calendar)
 {

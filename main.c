@@ -28,14 +28,14 @@ int main(int argc, const char * argv[])
 		{
 			importSortedFileCalendar(&calendar, file);
 			printCalendar(calendar);
-			
+
 			exportFileCalendar(calendar, fileOut);
 
 			printf("%s", listeContigueDesEvent(calendar, "TP S"));
-			
+
 			calendarBil = convertWeekCalToWeekCalBil(calendar);
-			
-			freeCalendar(calendar);
+
+			freeCalendar(&calendar);
 
 			fclose(file);
 			fclose(fileOut);

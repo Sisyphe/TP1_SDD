@@ -15,6 +15,14 @@
 /*
  * Retourne vrai si la chaine A contient la sous chaine B
  * Retourne faux sinon
+ *
+ * str: la chaine de caracteres ou cherche la sous chaine
+ * pattern: la chaine de caracteres recherchee
+ * return: un booleen valant vrai si str contient pattern
+ *
+ * i,j: iterateurs
+ * size: la taille de la chaine recherchee
+ * match: valeur de retour
  */
 int matchPattern(char str[10],
                  char * pattern)
@@ -41,6 +49,14 @@ int matchPattern(char str[10],
 /*
  * Permet d'extraire une sous chaine de src a partir
  * d'une valeur start et d'une valeur end
+ *
+ * src: la chaine de caracteres d'ou extraire la sous chaine
+ * start: l'indice de la chaine str a partir duquel extraire la sous chaine
+ * end: l'indice de la chaine str jusqu'ou extraire la sous chaine (dernier caractere compris)
+ * retour: la chaine extraite
+ *
+ * chaine: valeur de retour
+ * i: iterateur
  */
 char * strsub (char * src,
                int start,
